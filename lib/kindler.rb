@@ -105,7 +105,11 @@ module Kindler
     def kindlegen
       debug 'begin generate mobi'
       cmd = "kindleGen #{Shellwords.escape(tmp_dir)}/#{Shellwords.escape(title)}.opf #{@silent ? "> /dev/null" : ""}"
-      system(cmd)
+      result = system(cmd)
+      if result.nil?
+        puts "You don't seem to have kindleGen executable present in your system. See README for details."
+        exit
+      end
     end
 
     # generate contents.html
